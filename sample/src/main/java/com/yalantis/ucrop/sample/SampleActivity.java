@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -270,6 +271,9 @@ public class SampleActivity extends BaseActivity {
 
         options.setHideBottomControls(mCheckBoxHideBottomControls.isChecked());
         options.setFreeStyleCropEnabled(mCheckBoxFreeStyleCrop.isChecked());
+
+        options.setToolbarTitleFontSize(23);
+        options.setToolbarTitleGravity(Gravity.LEFT);
 
         /*
         If you want to configure how gestures work for all UCropActivity tabs

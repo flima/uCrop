@@ -263,6 +263,9 @@ public class UCrop {
 
         public static final String EXTRA_UCROP_WIDGET_COLOR_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarWidgetColor";
         public static final String EXTRA_UCROP_TITLE_TEXT_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleText";
+        public static final String EXTRA_UCROP_TITLE_FONT_SIZE_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleFontSize";
+        public static final String EXTRA_UCROP_TITLE_GRAVITY_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleGravity";
+        public static final String EXTRA_UCROP_TITLE_TYPEFACE_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleTypeface";
         public static final String EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE = EXTRA_PREFIX + ".UcropToolbarCancelDrawable";
         public static final String EXTRA_UCROP_WIDGET_CROP_DRAWABLE = EXTRA_PREFIX + ".UcropToolbarCropDrawable";
 
@@ -441,6 +444,27 @@ public class UCrop {
          */
         public void setToolbarTitle(@Nullable String text) {
             mOptionBundle.putString(EXTRA_UCROP_TITLE_TEXT_TOOLBAR, text);
+        }
+
+        /**
+         * @param fontSize - desired font size for Toolbar title
+         */
+        public void setToolbarTitleFontSize(@Nullable float fontSize) {
+            mOptionBundle.putFloat(EXTRA_UCROP_TITLE_FONT_SIZE_TOOLBAR, fontSize);
+        }
+
+        /**
+         * @param gravity - desired gravity for Toolbar title
+         */
+        public void setToolbarTitleGravity(@Nullable int gravity) {
+            mOptionBundle.putInt(EXTRA_UCROP_TITLE_GRAVITY_TOOLBAR, gravity);
+        }
+
+        /**
+         * @param typeface - desired typeface for Toolbar title
+         */
+        public void setToolbarTypeface(@Nullable String typeface) {
+            mOptionBundle.putString(EXTRA_UCROP_TITLE_TYPEFACE_TOOLBAR, typeface);
         }
 
         /**

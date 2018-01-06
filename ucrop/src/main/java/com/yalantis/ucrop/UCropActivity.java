@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,6 +21,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,6 +81,9 @@ public class UCropActivity extends AppCompatActivity {
     private static final int ROTATE_WIDGET_SENSITIVITY_COEFFICIENT = 42;
 
     private String mToolbarTitle;
+    private float mToolbarTitleFontSize;
+    private Integer mToolbarTitleGravity;
+    private String mToolbarTitleTypeface;
 
     // Enables dynamic coloring
     private int mToolbarColor;
@@ -274,6 +280,9 @@ public class UCropActivity extends AppCompatActivity {
         mToolbarCancelDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE, R.drawable.ucrop_ic_cross);
         mToolbarCropDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CROP_DRAWABLE, R.drawable.ucrop_ic_done);
         mToolbarTitle = intent.getStringExtra(UCrop.Options.EXTRA_UCROP_TITLE_TEXT_TOOLBAR);
+        mToolbarTitleGravity = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_TITLE_GRAVITY_TOOLBAR, Gravity.CENTER);
+        mToolbarTitleFontSize = intent.getFloatExtra(UCrop.Options.EXTRA_UCROP_TITLE_FONT_SIZE_TOOLBAR, 17f);
+        mToolbarTitleTypeface = intent.getStringExtra(UCrop.Options.EXTRA_UCROP_TITLE_TYPEFACE_TOOLBAR);
         mToolbarTitle = mToolbarTitle != null ? mToolbarTitle : getResources().getString(R.string.ucrop_label_edit_photo);
         mLogoColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_LOGO_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_default_logo));
         mShowBottomControls = !intent.getBooleanExtra(UCrop.Options.EXTRA_HIDE_BOTTOM_CONTROLS, false);
@@ -316,9 +325,17 @@ public class UCropActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(mToolbarColor);
         toolbar.setTitleTextColor(mToolbarWidgetColor);
 
+        // Setup Toolbar title
         final TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbarTitle.setTextColor(mToolbarWidgetColor);
         toolbarTitle.setText(mToolbarTitle);
+        Toolbar.LayoutParams layoutParams = (Toolbar.LayoutParams) toolbarTitle.getLayoutParams();
+        layoutParams.gravity = mToolbarTitleGravity;
+        toolbarTitle.setLayoutParams(layoutParams);
+        toolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,mToolbarTitleFontSize);
+        if(mToolbarTitleTypeface != null){
+            toolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), mToolbarTitleTypeface));
+        }
 
         // Color buttons inside the Toolbar
         Drawable stateButtonDrawable = ContextCompat.getDrawable(this, mToolbarCancelDrawable).mutate();
